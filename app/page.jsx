@@ -172,12 +172,12 @@ export default function Page() {
       </form>
       {loading && (
         <div className="text-center bg-yellow-200 p-4 rounded-md pt-2">
-          Test is running please have some patience...
+          Test is running in background please wait...
         </div>
       )}
       {error && (
         <div className="text-center bg-red-200 p-4 rounded-md">
-          Oops.. Something went wrong with the test, call Shubham!
+          Oops... Something went wrong with the test..!
         </div>
       )}
       {responseData && (
