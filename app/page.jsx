@@ -1,20 +1,3 @@
-// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-// import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
-// const TerminalCodeBlock = () => {
-//   const codeString = "Random Phone Number 6922100457\nStatic Phone Number 9767417427\nRandom First Name cxiiTdrZWniFRWgYNrDO\nRandom Last Name TmidGENtZNYgrIoNEBEv\nRandom Email rF2IXC@example.com\n\nRunning 1 test using 1 worker\n\n[1A[2KRandom Phone Number 5581954438\n\n[1A[2KStatic Phone Number 9767417427\n\n[1A[2KRandom First Name vUKewiJnXN\n\n[1A[2KRandom Last Name zGcNCDrcPXhMCnvsLAo\n\n[1A[2KRandom Email 3Ggzdkn@example.com\n\n[1A[2K[1/1] [chromium] › test/SignUp-Test/SignUpFeatures.spec.ts:88:5 › Signup-Form-Validation-Error-Messeges\n[1A[2K  1 passed (6.2s)\n\nTo open last HTML report run:\n\n  npx playwright show-report";
-
-//   return (
-//     <div className="bg-gray-600 p-4 rounded-lg">
-//       <SyntaxHighlighter language="TerminalCodeBlock" style={vscDarkPlus}>
-//         {codeString}
-//       </SyntaxHighlighter>
-//     </div>
-//   );
-// };
-
-// export default TerminalCodeBlock;
-
 "use client";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -27,12 +10,45 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const handelUrlChange = function (e) {
-    setDevUrl(e.target.value);
+  // const handelUrlChange = function (e) {
+  //   setDevUrl(e.target.value);
+  // };
+  const handleTestNameChange = function (e) {
+    setTestname(e.target.value);
   };
+
+  const testOptions = [
+    "Signup-Form-Validation-Error-Messeges",
+    "ChangePhoneNumber",
+    "SignupForm",
+    "Test 4",
+  ];
+
   const handelTestNameChange = function (e) {
     setTestname(e.target.value);
   };
+
+  const handleDevUrlChange = function (e) {
+    setDevUrl(e.target.value);
+  };
+
+  // Select options for dev servers
+  const devServers = [
+    { value: "https://uitest.mymedisage.com", label: "UITest" },
+    { value: "https://dev1.mymedisage.com", label: "Dev1" },
+    { value: "https://dev2.mymedisage.com", label: "Dev2" },
+    { value: "https://dev3.mymedisage.com", label: "Dev3" },
+    { value: "https://dev4.mymedisage.com", label: "Dev4" },
+    { value: "https://dev5.mymedisage.com", label: "Dev5" },
+    { value: "https://dev6.mymedisage.com", label: "Dev6" },
+    { value: "https://dev7.mymedisage.com", label: "Dev7" },
+    { value: "https://dev8.mymedisage.com", label: "Dev8" },
+    { value: "https://dev9.mymedisage.com", label: "Dev9" },
+    { value: "https://dev10.mymedisage.com", label: "Dev10" },
+    { value: "https://dev11.mymedisage.com", label: "Dev11" },
+    { value: "https://dev12.mymedisage.com", label: "Dev12" },
+    // Add more servers as needed
+  ];
 
   useEffect(() => {
     // If responseData is updated, you can perform actions here
@@ -40,29 +56,6 @@ export default function Page() {
     console.log("Response Data:", responseData);
   }, [responseData]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault(); // Prevent default form submission
-
-  //   // Construct the URL with query parameters
-  //   const apiUrl = new URL("http://localhost:7000/api/admin/");
-  //   apiUrl.searchParams.append("url", devUrl);
-  //   apiUrl.searchParams.append("testName", testName);
-
-  //   // Make the API call using fetch with the constructed URL
-  //   try {
-  //     const response = await fetch(apiUrl.toString());
-
-  //     if (response.ok) {
-  //       // Handle success (e.g., show a success message)
-  //       console.log("API call successful");
-  //     } else {
-  //       // Handle errors (e.g., show an error message)
-  //       console.error("API call failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error occurred:", error);
-  //   }
-  // };
   const openUrlInNewTab = (e) => {
     e.sto;
     // Change 'your-url-here' to the URL you want to open in a new tab
@@ -119,7 +112,7 @@ export default function Page() {
     <div className="max-w-md mx-auto my-8">
       <h1 className="text-3xl font-bold mb-4">Testing Dashboard</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+        {/* <div>
           <label htmlFor="devurl" className="block mb-1">
             Enter Dev Server:
           </label>
@@ -130,9 +123,27 @@ export default function Page() {
             placeholder="https://dev2.mymedisage.com"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
+        </div> */}
+        <div>
+          <label htmlFor="devurl" className="block mb-1">
+            Select Dev Server:
+          </label>
+          <select
+            onChange={handleDevUrlChange}
+            value={devUrl}
+            name="devurl"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+          >
+            <option value="">Select a server</option>
+            {devServers.map((server, index) => (
+              <option key={index} value={server.value}>
+                {server.label}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor="test" className="block mb-1">
             Enter Test Name:
           </label>
@@ -142,6 +153,26 @@ export default function Page() {
             placeholder="Eg: SignUp test"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
+        </div> */}
+
+        <div>
+          <label htmlFor="test" className="block mb-1">
+            Select Test Name:
+          </label>
+          {/* Select dropdown for test names */}
+          <select
+            onChange={handleTestNameChange}
+            value={testName}
+            name="test"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+          >
+            <option value="">Select a test</option>
+            {testOptions.map((test, index) => (
+              <option key={index} value={test}>
+                {test}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button
